@@ -1,4 +1,5 @@
 #!/usr/bin/python3
+"""Prime Game interview question"""
 
 
 def is_prime(n):
