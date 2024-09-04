@@ -2,48 +2,41 @@
 """Prime Game interview question"""
 
 
-def is_prime(n):
-    """Check if n is a prime number."""
-    if n <= 1:
-        return False
-    if n == 2:
-        return True
-    if n % 2 == 0:
-        return False
-    i = 3
-    while i * i <= n:
-        if n % i == 0:
-            return False
-        i += 2
-    return True
+def delete_multiples(ls, x):
+    """removes multiple
+    of primes
+    """
+    for i in range(2, len(ls)):
+        try:
+            ls[i * x] = 0
+        except (ValueError, IndexError):
+            break
 
 
 def isWinner(x, nums):
-    """Return the name of the player that won the most rounds."""
-    Maria = 0
-    Ben = 0
-
-    for n in nums:
-        if n == 1:
-            Ben += 1
-            continue
-
-        primes = [i for i in range(2, n + 1) if is_prime(i)]
-        turn = 0
-
-        while primes:
-            current_prime = primes.pop(0)
-            primes = [p for p in primes if p % current_prime != 0]
-            turn += 1
-
-        if turn % 2 != 0:
-            Maria += 1
-        else:
-            Ben += 1
-
-    if Maria > Ben:
-        return "Maria"
-    elif Ben > Maria:
-        return "Ben"
-    else:
+    """x - rounds
+    nums - numbers list
+    """
+    if x <= 0 or nums is None:
         return None
+    if x != len(nums):
+        return None
+
+    b = 0
+    m = 0
+
+    a = [1 for x in range(sorted(nums)[-1] + 1)]
+    a[0], a[1] = 0, 0
+    for i in range(2, len(a)):
+        delete_multiples(a, i)
+
+    for i in nums:
+        if sum(a[0:i + 1]) % 2 == 0:
+            b += 1
+        else:
+            m += 1
+    if b > m:
+        return "Ben"
+    if m > b:
+        return "Maria"
+    return None
