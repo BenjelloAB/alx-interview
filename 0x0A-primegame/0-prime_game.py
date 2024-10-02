@@ -1,5 +1,7 @@
 #!/usr/bin/python3
 """Prime Game interview question"""
+
+
 def delete_multiples(ls, x):
     """removes multiple
     of primes
@@ -9,6 +11,8 @@ def delete_multiples(ls, x):
             ls[i * x] = 0
         except (ValueError, IndexError):
             break
+
+
 def isWinner(x, nums):
     """x - rounds
     nums - numbers list
